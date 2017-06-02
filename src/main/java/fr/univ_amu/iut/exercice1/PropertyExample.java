@@ -1,13 +1,19 @@
 package fr.univ_amu.iut.exercice1;
 
 import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 public class PropertyExample {
-    private ChangeListener changeListener;
-    private InvalidationListener invalidationListener;
+    private ChangeListener changeListener = (ObservableValue observable, Object oldValue, Object newValue) ->
+            System.out.println("The observableValue has changed: oldValue = " + oldValue +", newValue = "+ newValue);
+    private InvalidationListener invalidationListener = observable ->
+            System.out.println("The observable has been invalidated.");
 
     private IntegerProperty anIntProperty;
 
@@ -19,15 +25,44 @@ public class PropertyExample {
     }
 
     void createProperty() {
-        throw new RuntimeException("Not yet implemented !");
+        anIntProperty = new SimpleIntegerProperty(1024);
+        System.out.println();
+        System.out.println("anIntProperty = " + anIntProperty);
+        System.out.println("anIntProperty.get() = "+ getAnInt());
+        System.out.println("anIntProperty.getValue() = "+ anIntProperty.getValue());
+
     }
 
     void addAndRemoveInvalidationListener() {
-        throw new RuntimeException("Not yet implemented !");
+        System.out.println();
+        System.out.println("Add invalidation listener.");
+        anIntProperty.addListener(invalidationListener);
+        System.out.println("setValue() with 1024.");
+        anIntProperty.setValue(1024);
+        System.out.println("set() with 2105.");
+        anIntProperty.setValue(2105);
+        System.out.println("setValue() with 5012.");
+        anIntProperty.setValue(5012);
+        System.out.println("Remove invalidation listener.");
+        anIntProperty.removeListener(invalidationListener);
+        System.out.println("set() with 1024.");
+        anIntProperty.set(1024);
     }
 
     void addAndRemoveChangeListener() {
-        throw new RuntimeException("Not yet implemented !");
+        System.out.println();
+        System.out.println("Add change listener.");
+        anIntProperty.addListener(changeListener);
+        System.out.println("setValue() with 1024.");
+        anIntProperty.setValue(1024);
+        System.out.println("set() with 2105.");
+        anIntProperty.setValue(2105);
+        System.out.println("setValue() with 5012.");
+        anIntProperty.setValue(5012);
+        System.out.println("Remove change listener.");
+        anIntProperty.removeListener(changeListener);
+        System.out.println("set() with 1024.");
+        anIntProperty.set(1024);
     }
 
 
