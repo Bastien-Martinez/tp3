@@ -139,7 +139,10 @@ public class TriangleArea {
     }
 
     void printResult() {
-        throw new RuntimeException("Not yet implemented !");
+        System.out.println("For P1(" + x1.get() + "," + y1.get() + "), " +
+                           "P2(" + x2.get() + "," + y2.get() + "), " +
+                           "P3(" + x3.get() + "," + y3.get() + "), " +
+                            "the area of triangle ABC is " + area.getValue());
     }
 
     private void createBinding() {
@@ -148,6 +151,15 @@ public class TriangleArea {
         NumberBinding x2y3 = Bindings.multiply(x2, y3);
         NumberBinding x2y1 = Bindings.multiply(x2, y1);
         NumberBinding x3y1 = Bindings.multiply(x3, y1);
-        NumberBinding x3y2 = Bindings.multiply(x1, y2);
+        NumberBinding x3y2 = Bindings.multiply(x3, y2);
+
+        NumberBinding x1y2sx1y3 = Bindings.subtract(x1y2, x1y3);
+        NumberBinding x2y3sx2y1 = Bindings.subtract(x2y3, x2y1);
+        NumberBinding x3y1sx3y2 = Bindings.subtract(x3y1, x3y2);
+
+
+        NumberBinding sum = Bindings.add(x1y2sx1y3, Bindings.add(x2y3sx2y1, x3y1sx3y2));
+        NumberBinding total = Bindings.divide(sum, 2.0);
+        area.bind(Bindings.when(Bindings.lessThan(total, 0.0)).then(Bindings.negate(total)).otherwise(total));
     }
 }
