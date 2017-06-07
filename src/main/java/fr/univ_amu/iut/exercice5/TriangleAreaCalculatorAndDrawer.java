@@ -73,10 +73,37 @@ public class TriangleAreaCalculatorAndDrawer extends Application {
     private void addDrawPane() {
         drawPane.setPrefHeight(500);
         drawPane.setPrefWidth(500);
+        root.add(drawPane,0,11,2,1);
+        drawPane.setStyle("-fx-background-color: gainsboro");
+
+        p1p2.startXProperty().bind(triangleArea.x1Property().multiply(50));
+        p1p2.startYProperty().bind(triangleArea.y1Property().multiply(50));
+        p1p2.endXProperty().bind(triangleArea.x2Property().multiply(50));
+        p1p2.endYProperty().bind(triangleArea.y2Property().multiply(50));
+
+        p2p3.startXProperty().bind(triangleArea.x2Property().multiply(50));
+        p2p3.startYProperty().bind(triangleArea.y2Property().multiply(50));
+        p2p3.endXProperty().bind(triangleArea.x3Property().multiply(50));
+        p2p3.endYProperty().bind(triangleArea.y3Property().multiply(50));
+
+        p3p1.startXProperty().bind(triangleArea.x3Property().multiply(50));
+        p3p1.startYProperty().bind(triangleArea.y3Property().multiply(50));
+        p3p1.endXProperty().bind(triangleArea.x1Property().multiply(50));
+        p3p1.endYProperty().bind(triangleArea.y1Property().multiply(50));
+
+        drawPane.getChildren().addAll(p1p2,p2p3,p3p1);
     }
 
     private void configSlider(Slider slider) {
-        
+        slider.setMin(0);
+        slider.setMax(10);
+        slider.setValue(0);
+
+        slider.setMajorTickUnit(5);
+        slider.setMinorTickCount(4);
+        slider.setShowTickLabels(true);
+        slider.setShowTickMarks(true);
+        slider.setSnapToTicks(true);
     }
 
     private void configGridPane() {
@@ -131,6 +158,8 @@ public class TriangleAreaCalculatorAndDrawer extends Application {
 
         triangleArea.x3Property().bind(x3Slider.valueProperty());
         triangleArea.y3Property().bind(y3Slider.valueProperty());
+
+
 
         areaTextField.textProperty().bind(triangleArea.areaProperty().asString());
     }
