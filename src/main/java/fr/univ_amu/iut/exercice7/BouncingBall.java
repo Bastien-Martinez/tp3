@@ -100,4 +100,8 @@ public class BouncingBall extends Application {
         stage.setTitle("BouncingBall");
         stage.show();
     }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

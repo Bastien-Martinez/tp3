@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.util.converter.NumberStringConverter;
 
 public class BidiBindingCircle extends Application {
 
@@ -49,7 +50,7 @@ public class BidiBindingCircle extends Application {
         c.centerXProperty().bind(pane.widthProperty().divide(2));
         c.centerYProperty().bind(pane.heightProperty().divide(2));
 
-        textField.textProperty().bind(c.radiusProperty().asString());
+        textField.textProperty().bindBidirectional(c.radiusProperty(), new NumberStringConverter());
     }
 
     private void configStage(Stage stage) {
