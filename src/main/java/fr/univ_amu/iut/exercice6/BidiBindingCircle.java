@@ -1,7 +1,9 @@
 package fr.univ_amu.iut.exercice6;
 
 
+import com.sun.javafx.binding.BidirectionalBinding;
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
 import javafx.scene.Scene;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -14,7 +16,7 @@ import javafx.stage.Stage;
 public class BidiBindingCircle extends Application {
 
     private Circle c = new Circle();
-    private Slider slider = new Slider();
+    private Slider slider = new Slider(10,250,150);
     private TextField textField = new TextField();
 
     private Pane pane = new Pane();
@@ -43,18 +45,23 @@ public class BidiBindingCircle extends Application {
     }
 
     private void createBindings() {
-        throw new RuntimeException("Not yet implemented !");
+        c.radiusProperty().bind(slider.valueProperty());
+        c.centerXProperty().bind(pane.widthProperty().divide(2));
+        c.centerYProperty().bind(pane.heightProperty().divide(2));
+
+        textField.textProperty().bind(c.radiusProperty().asString());
     }
 
     private void configStage(Stage stage) {
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setScene(scene);
         stage.setTitle("BidiBindingCircle");
         stage.show();
     }
 
     private void addSlider() {
-        throw new RuntimeException("Not yet implemented !");
+        root.setTop(slider);
+
     }
 
     private void addPane() {
@@ -62,5 +69,9 @@ public class BidiBindingCircle extends Application {
         pane.setPrefWidth(500);
         pane.setPrefHeight(500);
         root.setCenter(pane);
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
