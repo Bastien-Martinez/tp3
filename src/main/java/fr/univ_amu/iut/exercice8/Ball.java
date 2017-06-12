@@ -10,7 +10,10 @@ public class Ball extends Circle {
     private final DoubleProperty velocityY;//en pixel par nanosecond
 
     public Ball() {
-        throw new RuntimeException("Not yet implemented !");
+        Ball ball = new ball();
+        ball.setRadius(10.0D);
+        ball.setStyle("-fx-background-color: violet");
+        
     }
 
     public boolean collided(Shape other) {

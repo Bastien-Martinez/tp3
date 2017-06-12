@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Cursor;
 import javafx.scene.shape.Rectangle;
 
+import javax.xml.bind.Marshaller;
+
 public class Paddle extends Rectangle {
     private DoubleProperty paddleY = new SimpleDoubleProperty();
 
@@ -17,7 +19,8 @@ public class Paddle extends Rectangle {
         this.setStyle("-fx-background-color: red");
         this.setCursor(Cursor.CLOSED_HAND);
         this.setOnMousePressed(event -> {
-            initPaddleTranslateY
+            initPaddleTranslateY ;
         });
+
     }
 }
